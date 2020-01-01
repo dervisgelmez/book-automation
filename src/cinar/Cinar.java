@@ -5,6 +5,7 @@
  */
 package cinar;
 
+import cinar.Interface.index;
 import cinar.Interface.login;
 
 /**
@@ -13,13 +14,16 @@ import cinar.Interface.login;
  */
 public class Cinar {
     
-
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        login CAL = new login();
-        CAL.setVisible(true);
+        login lgn = new login();
+        lgn.setVisible(false);
+        
+        index ind = new index();
+        ind.setVisible(true);
     }
     
 }
