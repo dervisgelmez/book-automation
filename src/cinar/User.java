@@ -6,12 +6,10 @@
 package cinar;
 
 import cinar.Interface.index;
-import cinar.Interface.login;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *

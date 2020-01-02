@@ -22,7 +22,7 @@ public class index extends javax.swing.JFrame {
         initComponents();
         Command cmd = new Command();
         cmd.setIndex(jTable1);
-        this.selector(homepage, homePanel);
+        this.selector(homepage,"Anasayfa","Hoşgeldiniz");
     }
 
     /**
@@ -41,6 +41,11 @@ public class index extends javax.swing.JFrame {
         category = new javax.swing.JLabel();
         author = new javax.swing.JLabel();
         basket = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        adminBook = new javax.swing.JLabel();
+        adminCategory = new javax.swing.JLabel();
+        adminAuthor = new javax.swing.JLabel();
+        adminPublisher = new javax.swing.JLabel();
         homePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -103,6 +108,71 @@ public class index extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(102, 51, 255));
+
+        adminBook.setForeground(new java.awt.Color(255, 255, 255));
+        adminBook.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        adminBook.setText("Kitap");
+        adminBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminBookMouseClicked(evt);
+            }
+        });
+
+        adminCategory.setForeground(new java.awt.Color(255, 255, 255));
+        adminCategory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        adminCategory.setText("Kategori");
+        adminCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminCategoryMouseClicked(evt);
+            }
+        });
+
+        adminAuthor.setForeground(new java.awt.Color(255, 255, 255));
+        adminAuthor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        adminAuthor.setText("Yazar");
+        adminAuthor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminAuthorMouseClicked(evt);
+            }
+        });
+
+        adminPublisher.setForeground(new java.awt.Color(255, 255, 255));
+        adminPublisher.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        adminPublisher.setText("Yayın Evi");
+        adminPublisher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminPublisherMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(adminBook, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(adminCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(adminAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(adminPublisher, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adminBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adminCategory, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(adminAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(adminPublisher, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
+        );
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
@@ -111,11 +181,6 @@ public class index extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(description)
-                            .addComponent(title))
-                        .addContainerGap(573, Short.MAX_VALUE))
-                    .addGroup(headerLayout.createSequentialGroup()
                         .addComponent(homepage, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,24 +188,30 @@ public class index extends javax.swing.JFrame {
                         .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(basket, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))))
+                        .addGap(52, 52, 52))
+                    .addGroup(headerLayout.createSequentialGroup()
+                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(description)
+                            .addComponent(title))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(title)
-                .addGap(0, 0, 0)
-                .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(homepage, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(basket, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(headerLayout.createSequentialGroup()
+                        .addComponent(title)
+                        .addGap(0, 0, 0)
+                        .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(homepage, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(basket, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         homePanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -156,13 +227,20 @@ public class index extends javax.swing.JFrame {
         jTable1.setEnabled(false);
         jTable1.setRowHeight(30);
         jTable1.setShowGrid(true);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(homePanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 893, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,27 +272,55 @@ public class index extends javax.swing.JFrame {
         // TODO add your handling code here:
         Command cmd = new Command();
         cmd.setCategory(jTable1);
-        this.selector(category, homePanel);
+        this.selector(category,"Kategori","Burada kategorilere göre seçenekler bulunmaktadır.");
     }//GEN-LAST:event_categoryMouseClicked
 
     private void homepageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homepageMouseClicked
         // TODO add your handling code here:
         Command cmd = new Command();
         cmd.setIndex(jTable1);
-        this.selector(homepage, homePanel);
+        this.selector(homepage,"Anasayfa","Hoşgeldiniz");
     }//GEN-LAST:event_homepageMouseClicked
 
     private void authorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseClicked
         // TODO add your handling code here:
         Command cmd = new Command();
         cmd.setAuthor(jTable1);
-        this.selector(author, homePanel);
+        this.selector(author,"Yazar","Burada yazarlara göre seçenekler bulunmaktadır.");
     }//GEN-LAST:event_authorMouseClicked
 
     private void basketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_basketMouseClicked
         // TODO add your handling code here:
-        this.selector(basket, homePanel);
+        this.selector(basket,"Sepet","yumurta");
     }//GEN-LAST:event_basketMouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void adminCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminCategoryMouseClicked
+        // TODO add your handling code here:
+        category cnt = new category();
+        cnt.setVisible(true);
+    }//GEN-LAST:event_adminCategoryMouseClicked
+
+    private void adminBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminBookMouseClicked
+        // TODO add your handling code here:
+        books bk = new books();
+        bk.setVisible(true);
+    }//GEN-LAST:event_adminBookMouseClicked
+
+    private void adminAuthorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminAuthorMouseClicked
+        // TODO add your handling code here:
+        author aut = new author();
+        aut.setVisible(true);
+    }//GEN-LAST:event_adminAuthorMouseClicked
+
+    private void adminPublisherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminPublisherMouseClicked
+        // TODO add your handling code here:
+        publisher pub = new publisher();
+        pub.setVisible(true);
+    }//GEN-LAST:event_adminPublisherMouseClicked
 
     /**
      * @param args the command line arguments
@@ -252,7 +358,7 @@ public class index extends javax.swing.JFrame {
     }
     
     
-    private void selector(JLabel label, JPanel panel)
+    private void selector(JLabel label, String title, String description)
     {
         homepage.setBackground(new java.awt.Color(102,102,255));
         category.setBackground(new java.awt.Color(102,102,255));
@@ -260,11 +366,15 @@ public class index extends javax.swing.JFrame {
         basket.setBackground(new java.awt.Color(102,102,255));
         label.setBackground(new java.awt.Color(102,51,255));
         
-        homePanel.setVisible(false);
-        panel.setVisible(true);
+        this.title.setText(title);
+        this.description.setText(description);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adminAuthor;
+    private javax.swing.JLabel adminBook;
+    private javax.swing.JLabel adminCategory;
+    private javax.swing.JLabel adminPublisher;
     private javax.swing.JLabel author;
     private javax.swing.JLabel basket;
     private javax.swing.JLabel category;
@@ -272,6 +382,7 @@ public class index extends javax.swing.JFrame {
     private javax.swing.JPanel header;
     private javax.swing.JPanel homePanel;
     private javax.swing.JLabel homepage;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel title;

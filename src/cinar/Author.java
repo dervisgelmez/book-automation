@@ -5,8 +5,10 @@
  */
 package cinar;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -34,6 +36,81 @@ public class Author {
     public void setName(String value)
     {
         this.name = value;
+    }
+    
+    public void create()
+    {    
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+      
+        try 
+        {
+            String query = "INSERT INTO author(name) VALUES (?)";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setString (1, this.name);  
+            preparedStmt.execute();
+                            
+            service.alert("Yazar eklenmiştir."); 
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        
+        db.close();
+        
+    }
+   
+    public void update()
+    {    
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+      
+        try 
+        {
+            String query = "UPDATE author SET name=? WHERE id=?";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setString (1, this.name);            
+            preparedStmt.setInt (2, this.id);
+            preparedStmt.execute();
+            
+            service.alert("Yazar güncellenmiştir."); 
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        
+        db.close();
+    }
+    
+    public void delete()
+    {
+        
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+      
+        try 
+        {
+            String query = "DELETE FROM author WHERE id=?";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setInt (1, this.id);
+            preparedStmt.execute();
+            
+            service.alert("Yazar silinmiştir."); 
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        
+        db.close();
     }
     
     public String[][] serialize()
@@ -66,5 +143,119 @@ public class Author {
        
         db.close();  
         return data;
+    }
+    
+    public void toList(JComboBox box)
+    {
+        box.removeAllItems();
+        
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+        
+        try 
+        { 
+            String query = "SELECT * FROM author";
+            Statement st = db.connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next())
+            {
+                box.addItem(rs.getString("name"));
+            }
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+       
+        db.close();  
+    }
+    
+    public int getSelectedId(JComboBox box)
+    {
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+        int id = 1;
+        
+        try 
+        {
+            String query = "SELECT * FROM author WHERE name=?";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setString(1,box.getSelectedItem().toString());
+
+            ResultSet rs = preparedStmt.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        db.close();
+        
+        return id;
+    }
+    
+    public String find(int id)
+    {
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+        String name = "";
+        
+        try 
+        {
+            String query = "SELECT * FROM author WHERE id=?";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setInt(1,id);
+            ResultSet rs = preparedStmt.executeQuery();
+            
+            while (rs.next()) 
+            {
+                name = rs.getString("name");
+            }
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        db.close();
+        
+        return name;
+    }
+    
+    public int find(String name)
+    {
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+        int id = 1;
+        
+        try 
+        {
+            String query = "SELECT * FROM author WHERE name=?";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setString(1,name);
+            ResultSet rs = preparedStmt.executeQuery();
+            
+            while (rs.next()) 
+            {
+                id = rs.getInt("id");
+            }
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        db.close();
+        
+        return id;
     }
 }

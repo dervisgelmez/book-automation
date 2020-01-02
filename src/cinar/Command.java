@@ -22,7 +22,7 @@ public class Command {
         db.initalize();
         
         Book book = new Book();
-        String[][] data = book.serialize();
+        Object[][] data = book.serialize();
         
         String[] column = {"Kitap adı","Yazar","Yayınevi","Yayın Tarihi","Fiyat",""};
         JTable jt = new JTable(data,column);
