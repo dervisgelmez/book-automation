@@ -15,54 +15,43 @@ import javax.swing.table.TableModel;
  *
  * @author dervis
  */
-public class Command {
+public class Command extends Services {
     
     public void setIndex(JTable table)
-    {      
-        Database db = new Database();
-        db.initalize();
-        
+    {
         Book book = new Book();
+        String[] column = {"Barcode","Kitap adı","Yazar","Yayınevi","Yayın Tarihi","Fiyat"};
         Object[][] data = book.serialize();
         
-        String[] column = {"Barcode","Kitap adı","Yazar","Yayınevi","Yayın Tarihi","Fiyat"};
-        JTable jt = new JTable(data,column);
-        table.setModel(jt.getModel());
+        //this function in extends class
+        setTableModels(table, column, data);
     }
     
     public void setCategory(JTable table)
-    {      
-        Database db = new Database();
-        db.initalize();
-        
+    {
         Category cat = new Category();
+        String[] column = {"Kategori Adı","Kitap Adedi"};
         String[][] data = cat.serialize();
         
-        String[] column = {"Kategori Adı","Kitap Adedi"};
-        JTable jt = new JTable(data,column);
-        table.setModel(jt.getModel());
+        //this function in extends class
+        setTableModels(table, column, data);
     }
     
     public void setAuthor(JTable table)
-    {      
-        Database db = new Database();
-        db.initalize();
-        
+    {
         Author aut = new Author();
+        String[] column = {"Yazar Adı","Kitap Adedi"};
         String[][] data = aut.serialize();
         
-        String[] column = {"Yazar Adı","Kitap Adedi"};
-        JTable jt = new JTable(data,column);
-        table.setModel(jt.getModel());
+        //this function in extends class
+        setTableModels(table, column, data);
     }
     
     public void setBasket(JTable table)
     {
         Basket basket = new Basket();
-        
         String[] column = {"id","Kitap Adı","Fiyat"};
-        JTable jt = new JTable(basket.getItems(),column);
-        table.setModel(jt.getModel());
+        setTableModels(table, column, basket.getItems());
     }
     
 }

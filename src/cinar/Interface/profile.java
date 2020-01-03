@@ -28,6 +28,8 @@ public class profile extends javax.swing.JFrame {
      */
     public profile() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
         name.setText(session.get("firstName"));
         surname.setText(session.get("lastName"));
         username.setText(session.get("username"));

@@ -21,6 +21,7 @@ public class credit extends javax.swing.JFrame {
      */
     public credit() {
         initComponents();
+        this.setLocationRelativeTo(null);
         Basket bsk = new Basket();
         total.setText(bsk.total());
     }

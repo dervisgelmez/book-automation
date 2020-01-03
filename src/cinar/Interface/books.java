@@ -25,6 +25,8 @@ public class books extends javax.swing.JFrame {
      */
     public books() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
         selector(add,addPanel);
         Category cat = new Category();
         cat.toList(category);

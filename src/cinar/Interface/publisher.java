@@ -20,6 +20,7 @@ public class publisher extends javax.swing.JFrame {
      */
     public publisher() {
         initComponents();
+        this.setLocationRelativeTo(null);
         selector(add,addPanel);
         token.setVisible(false);
     }

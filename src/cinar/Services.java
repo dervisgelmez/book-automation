@@ -8,6 +8,7 @@ package cinar;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -65,6 +66,12 @@ public class Services {
         }
         
         JOptionPane.showMessageDialog(null, msg, title, icon);
+    }
+    
+    public void setTableModels(JTable table, String[] column, Object[][] data)
+    {
+        JTable jt = new JTable(data,column);
+        table.setModel(jt.getModel());
     }
     
     

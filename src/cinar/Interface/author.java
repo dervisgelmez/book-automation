@@ -20,6 +20,8 @@ public class author extends javax.swing.JFrame {
      */
     public author() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
         selector(add,addPanel);
         token.setVisible(false);
     }

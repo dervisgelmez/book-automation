@@ -23,6 +23,7 @@ public class category extends javax.swing.JFrame {
      */
     public category() {
         initComponents();
+        this.setLocationRelativeTo(null);
         selector(add,addPanel);
         token.setVisible(false);
     }

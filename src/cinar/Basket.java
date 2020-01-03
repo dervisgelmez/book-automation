@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author dervis
  */
-public class Basket 
+public class Basket
 {
     private static Map<String, String> map = new HashMap<String, String>();
     
