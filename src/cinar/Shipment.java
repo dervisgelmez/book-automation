@@ -5,6 +5,8 @@
  */
 package cinar;
 
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author dervis
@@ -13,7 +15,7 @@ public class Shipment {
     
     private int id;
     private int user;
-    private int orderNumber;
+    private String orderNumber;
     private String address;
     private Double total;
     
@@ -38,12 +40,12 @@ public class Shipment {
         this.user = value;
     }
     
-    public int getOrderNumber()
+    public String getOrderNumber()
     {
         return this.orderNumber;
     }
     
-    public void setOrderNumber(int value)
+    public void setOrderNumber(String value)
     {
         this.orderNumber = value;
     }
@@ -66,5 +68,31 @@ public class Shipment {
     public void settotal(double value)
     {
         this.total = value;
+    }
+    
+    public void create()
+    {
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+              
+        try 
+        {
+            String query = "INSERT INTO shipment(user_id,order_number,address,total_price) VALUES (?,?,?,?)";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setInt (1, this.user);            
+            preparedStmt.setString(2, this.orderNumber);            
+            preparedStmt.setString (3, this.address);              
+            preparedStmt.setDouble(4, this.total);  
+            preparedStmt.execute();
+            
+            service.alert("Siparişiniz 3 iş günü içerisinde adresinize ulaşacaktır."); 
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        db.close();
     }
 }

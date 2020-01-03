@@ -27,19 +27,22 @@ public class index extends javax.swing.JFrame {
      */
     public index() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
         token.setVisible(false);
         clear.setVisible(false);
         buy.setVisible(false);
         Command cmd = new Command();
         cmd.setIndex(jTable1);
-        this.selector(homepage,"Anasayfa","Hoşgeldin "+session.get("name"));
         
-//        if (session.get("role").contains("user")) {
-//            adminBook.setVisible(false);
-//            adminAuthor.setVisible(false);
-//            adminCategory.setVisible(false);
-//            adminPublisher.setVisible(false);
-//        }
+        this.selector(homepage,"Anasayfa","Hoşgeldin "+ session.get("name"));
+        
+        if (session.get("role").contains("user")) {
+            adminBook.setVisible(false);
+            adminAuthor.setVisible(false);
+            adminCategory.setVisible(false);
+            adminPublisher.setVisible(false);
+        }
     }
 
     
@@ -394,7 +397,7 @@ public class index extends javax.swing.JFrame {
         // TODO add your handling code here:
         Command cmd = new Command();
         cmd.setIndex(jTable1);
-        this.selector(homepage,"Anasayfa","Hoşgeldiniz");
+        this.selector(homepage,"Anasayfa","Hoşgeldin "+ session.get("name"));
         
         addBasket.setVisible(true);
         buy.setVisible(false);
@@ -406,6 +409,7 @@ public class index extends javax.swing.JFrame {
         Command cmd = new Command();
         cmd.setAuthor(jTable1);
         this.selector(author,"Yazar","Burada yazarlara göre seçenekler bulunmaktadır.");
+        
         
         addBasket.setVisible(true);
         buy.setVisible(false);
@@ -464,20 +468,36 @@ public class index extends javax.swing.JFrame {
 
     private void addBasketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBasketMouseClicked
         // TODO add your handling code here:
-        int selected = Integer.valueOf(token.getText());
-        if (selected > -1) {
-            String barcode = jTable1.getModel().getValueAt(selected, 0).toString();
-            String[] split = barcode.split("_");
-            String id = split[1];
-            String title = jTable1.getModel().getValueAt(selected, 1).toString();
-            bsk.set(id,title);
+        Services service = new Services();
+        
+        if (!token.getText().isEmpty()) {
+            int selected = Integer.valueOf(token.getText());
+            if (selected > -1) {
+                String barcode = jTable1.getModel().getValueAt(selected, 0).toString();
+                String[] split = barcode.split("_");
+                String id = split[1];
+                String title = jTable1.getModel().getValueAt(selected, 1).toString();
+                bsk.set(id,title);
+            }
+        }
+        else
+        {
+            service.alert("warning", "Bir ürün seçiniz.");
         }
     }//GEN-LAST:event_addBasketMouseClicked
 
     private void buyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMouseClicked
         // TODO add your handling code here:
-        credit crd = new credit();
-        crd.setVisible(true);
+        Basket bsk = new Basket();
+        Services service = new Services();
+        if (bsk.count() > 0) 
+        {
+            credit crd = new credit();
+            crd.setVisible(true);
+        }
+        else {
+            service.alert("warnin", "Sepetiniz şuan boş, devam etmek için ürün ekleyiniz!");
+        }
     }//GEN-LAST:event_buyMouseClicked
 
     private void clearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearMouseClicked

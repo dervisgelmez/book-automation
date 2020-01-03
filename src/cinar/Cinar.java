@@ -7,6 +7,10 @@ package cinar;
 
 import cinar.Interface.index;
 import cinar.Interface.login;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -19,10 +23,7 @@ public class Cinar {
      */
     public static void main(String[] args) {
         login lgn = new login();
-        lgn.setVisible(false);
-        
-        index ind = new index();
-        ind.setVisible(true);
+        lgn.setVisible(true);
     }
     
 }

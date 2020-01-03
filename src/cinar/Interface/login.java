@@ -5,6 +5,7 @@
  */
 package cinar.Interface;
 
+import cinar.Services;
 import cinar.User;
 
 /**
@@ -18,6 +19,7 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -157,10 +159,23 @@ public class login extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        User user = new User();
-        user.setUsername(username.getText());
-        user.setPassword(password.getText());
-        user.login(this);
+        
+        Services service = new Services();
+        boolean access = true;
+        
+        access = (username.getText().isEmpty()) ? false : true;
+        access = (password.getText().isEmpty()) ? false : true;
+        
+        if (access) {
+            User user = new User();
+            user.setUsername(username.getText());
+            user.setPassword(password.getText());
+            user.login(this);
+        }
+        else 
+        {
+            service.alert("warning", "Lütfen bilgilerinizi giriniz.");
+        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**

@@ -215,7 +215,7 @@ public class User {
             while (rs.next()) {
                 session.set("login", "true");
                 session.set("id", String.valueOf(rs.getInt("id")));
-                session.set("name", (rs.getString("first_name") + " " +  rs.getString("last_name")));
+                session.set("name", (rs.getString("first_name") + " "+rs.getString("last_name")));
                 session.set("firstName", rs.getString("first_name"));
                 session.set("lastName", rs.getString("last_name"));
                 session.set("username", rs.getString("username"));
