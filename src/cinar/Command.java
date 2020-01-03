@@ -5,6 +5,7 @@
  */
 package cinar;
 
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +25,7 @@ public class Command {
         Book book = new Book();
         Object[][] data = book.serialize();
         
-        String[] column = {"Kitap adı","Yazar","Yayınevi","Yayın Tarihi","Fiyat",""};
+        String[] column = {"Barcode","Kitap adı","Yazar","Yayınevi","Yayın Tarihi","Fiyat"};
         JTable jt = new JTable(data,column);
         table.setModel(jt.getModel());
     }
@@ -52,6 +53,15 @@ public class Command {
         
         String[] column = {"Yazar Adı","Kitap Adedi"};
         JTable jt = new JTable(data,column);
+        table.setModel(jt.getModel());
+    }
+    
+    public void setBasket(JTable table)
+    {
+        Basket basket = new Basket();
+        
+        String[] column = {"id","Kitap Adı","Fiyat"};
+        JTable jt = new JTable(basket.getItems(),column);
         table.setModel(jt.getModel());
     }
     

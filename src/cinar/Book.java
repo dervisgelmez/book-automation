@@ -149,19 +149,19 @@ public class Book {
         
         try 
         { 
-            String query = "SELECT b.title, a.name as author, p.name, b.year, b.price FROM book b LEFT JOIN publisher p ON b.publisher_id = p.id LEFT JOIN author a ON b.author_id=a.id";
+            String query = "SELECT b.id,b.title, a.name as author, p.name, b.year, b.price FROM book b LEFT JOIN publisher p ON b.publisher_id = p.id LEFT JOIN author a ON b.author_id=a.id";
             Statement st = db.connection.createStatement();
             ResultSet rs = st.executeQuery(query);
 
             int i=0;
             while (rs.next())
             {
-                data[i][0] = rs.getString("title");
-                data[i][1] = rs.getString("author");
-                data[i][2] = rs.getString("name");
-                data[i][3] = String.valueOf(rs.getInt("year"));
-                data[i][4] = String.valueOf(rs.getDouble("price"));
-                
+                data[i][0] = "CNR_"+String.valueOf(rs.getInt("id"));
+                data[i][1] = rs.getString("title");
+                data[i][2] = rs.getString("author");
+                data[i][3] = rs.getString("name");
+                data[i][4] = String.valueOf(rs.getInt("year"));
+                data[i][5] = String.valueOf(rs.getDouble("price"));
                 i++;
             }
         }
@@ -356,6 +356,49 @@ public class Book {
                 data[5] = rs.getString("description");
                 data[6] = String.valueOf(rs.getInt("year"));
                 data[7] = String.valueOf(rs.getInt("price"));
+                data[8] = String.valueOf(rs.getInt("number_of_pages"));
+                data[9] = rs.getString("dought_type");
+                data[10] = String.valueOf(rs.getInt("number_of_prints"));
+            }
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        db.close();
+        
+        return data;
+    }
+    
+    public String[] find(int ids)
+    {
+        Database db = new Database();
+        db.initalize();
+        
+        Category cat = new Category();
+        Author aut = new Author();
+        Publisher pub = new Publisher();
+        Services service = new Services();
+        
+        String[] data = new String[11];
+        
+        try 
+        {
+            String query = "SELECT * FROM book WHERE id=?";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setInt(1,ids);
+            ResultSet rs = preparedStmt.executeQuery();
+
+            while (rs.next())
+            {
+                data[0] = String.valueOf(rs.getInt("id"));
+                data[1] = cat.find(rs.getInt("category_id"));
+                data[2] = aut.find(rs.getInt("author_id"));
+                data[3] = pub.find(rs.getInt("publisher_id"));
+                data[4] = rs.getString("title");
+                data[5] = rs.getString("description");
+                data[6] = String.valueOf(rs.getInt("year"));
+                data[7] = String.valueOf(rs.getDouble("price"));
                 data[8] = String.valueOf(rs.getInt("number_of_pages"));
                 data[9] = rs.getString("dought_type");
                 data[10] = String.valueOf(rs.getInt("number_of_prints"));

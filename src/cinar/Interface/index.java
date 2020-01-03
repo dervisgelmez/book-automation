@@ -5,10 +5,13 @@
  */
 package cinar.Interface;
 
+import cinar.Basket;
 import cinar.Command;
+import cinar.Services;
 import cinar.Session;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,12 +20,16 @@ import javax.swing.JPanel;
 public class index extends javax.swing.JFrame {
     
     Session session = new Session();
+    Basket bsk = new Basket();
     
     /**
      * Creates new form index
      */
     public index() {
         initComponents();
+        token.setVisible(false);
+        clear.setVisible(false);
+        buy.setVisible(false);
         Command cmd = new Command();
         cmd.setIndex(jTable1);
         this.selector(homepage,"Anasayfa","Hoşgeldin "+session.get("name"));
@@ -35,6 +42,7 @@ public class index extends javax.swing.JFrame {
 //        }
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +68,11 @@ public class index extends javax.swing.JFrame {
         homePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        token = new javax.swing.JLabel();
+        addBasket = new javax.swing.JLabel();
+        buy = new javax.swing.JLabel();
+        clear = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -110,7 +123,7 @@ public class index extends javax.swing.JFrame {
         basket.setBackground(new java.awt.Color(102, 102, 255));
         basket.setForeground(new java.awt.Color(255, 255, 255));
         basket.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        basket.setText("Sepet (0)");
+        basket.setText("Sepet");
         basket.setOpaque(true);
         basket.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -205,9 +218,6 @@ public class index extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addComponent(description)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(headerLayout.createSequentialGroup()
                         .addComponent(homepage, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,7 +227,9 @@ public class index extends javax.swing.JFrame {
                         .addComponent(basket, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50))
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addComponent(title)
+                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(description)
+                            .addComponent(title))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -246,8 +258,15 @@ public class index extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jTable1.setEnabled(false);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setRowHeight(30);
         jTable1.setShowGrid(true);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -256,20 +275,89 @@ public class index extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jPanel2.setBackground(new java.awt.Color(102, 102, 255));
+
+        addBasket.setBackground(new java.awt.Color(255, 255, 255));
+        addBasket.setForeground(new java.awt.Color(51, 51, 51));
+        addBasket.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        addBasket.setText("Sepete Ekle");
+        addBasket.setOpaque(true);
+        addBasket.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addBasketMouseClicked(evt);
+            }
+        });
+
+        buy.setBackground(new java.awt.Color(255, 255, 255));
+        buy.setForeground(new java.awt.Color(51, 51, 51));
+        buy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        buy.setText("Satın Al");
+        buy.setOpaque(true);
+        buy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buyMouseClicked(evt);
+            }
+        });
+
+        clear.setBackground(new java.awt.Color(255, 255, 255));
+        clear.setForeground(new java.awt.Color(51, 51, 51));
+        clear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        clear.setText("Sepeti Boşalt");
+        clear.setOpaque(true);
+        clear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clearMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(token, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buy, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addBasket, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(token)
+                    .addComponent(addBasket, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homePanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 893, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -277,7 +365,7 @@ public class index extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(homePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,6 +384,10 @@ public class index extends javax.swing.JFrame {
         Command cmd = new Command();
         cmd.setCategory(jTable1);
         this.selector(category,"Kategori","Burada kategorilere göre seçenekler bulunmaktadır.");
+        
+        addBasket.setVisible(true);
+        buy.setVisible(false);
+        clear.setVisible(false);
     }//GEN-LAST:event_categoryMouseClicked
 
     private void homepageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homepageMouseClicked
@@ -303,6 +395,10 @@ public class index extends javax.swing.JFrame {
         Command cmd = new Command();
         cmd.setIndex(jTable1);
         this.selector(homepage,"Anasayfa","Hoşgeldiniz");
+        
+        addBasket.setVisible(true);
+        buy.setVisible(false);
+        clear.setVisible(false);
     }//GEN-LAST:event_homepageMouseClicked
 
     private void authorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseClicked
@@ -310,15 +406,30 @@ public class index extends javax.swing.JFrame {
         Command cmd = new Command();
         cmd.setAuthor(jTable1);
         this.selector(author,"Yazar","Burada yazarlara göre seçenekler bulunmaktadır.");
+        
+        addBasket.setVisible(true);
+        buy.setVisible(false);
+        clear.setVisible(false);
     }//GEN-LAST:event_authorMouseClicked
 
     private void basketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_basketMouseClicked
         // TODO add your handling code here:
-        this.selector(basket,"Sepet","yumurta");
+        this.selector(basket,"Sepet","Sepetinizdeki ürünleri görmektesiniz.");
+        Command cmd = new Command();
+        cmd.setBasket(jTable1);
+        
+        addBasket.setVisible(false);
+        buy.setVisible(true);
+        clear.setVisible(true);
     }//GEN-LAST:event_basketMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
+        int selected = jTable1.getSelectedRow();
+        if(selected > -1)
+        {
+            token.setText(String.valueOf(selected));
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void adminCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminCategoryMouseClicked
@@ -350,6 +461,37 @@ public class index extends javax.swing.JFrame {
         profile prf = new profile();
         prf.setVisible(true);
     }//GEN-LAST:event_profileMouseClicked
+
+    private void addBasketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBasketMouseClicked
+        // TODO add your handling code here:
+        int selected = Integer.valueOf(token.getText());
+        if (selected > -1) {
+            String barcode = jTable1.getModel().getValueAt(selected, 0).toString();
+            String[] split = barcode.split("_");
+            String id = split[1];
+            String title = jTable1.getModel().getValueAt(selected, 1).toString();
+            bsk.set(id,title);
+        }
+    }//GEN-LAST:event_addBasketMouseClicked
+
+    private void buyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMouseClicked
+        // TODO add your handling code here:
+        credit crd = new credit();
+        crd.setVisible(true);
+    }//GEN-LAST:event_buyMouseClicked
+
+    private void clearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearMouseClicked
+        // TODO add your handling code here:
+        bsk.clear();
+        // TODO add your handling code here:
+        this.selector(basket,"Sepet","Sepetinizdeki ürünleri görmektesiniz.");
+        Command cmd = new Command();
+        cmd.setBasket(jTable1);
+        
+        addBasket.setVisible(false);
+        buy.setVisible(true);
+        clear.setVisible(true);
+    }//GEN-LAST:event_clearMouseClicked
 
     /**
      * @param args the command line arguments
@@ -398,23 +540,31 @@ public class index extends javax.swing.JFrame {
         this.title.setText(title);
         this.description.setText(description);
     }
+    
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addBasket;
     private javax.swing.JLabel adminAuthor;
     private javax.swing.JLabel adminBook;
     private javax.swing.JLabel adminCategory;
     private javax.swing.JLabel adminPublisher;
     private javax.swing.JLabel author;
     private javax.swing.JLabel basket;
+    private javax.swing.JLabel buy;
     private javax.swing.JLabel category;
+    private javax.swing.JLabel clear;
     private javax.swing.JLabel description;
     private javax.swing.JPanel header;
     private javax.swing.JPanel homePanel;
     private javax.swing.JLabel homepage;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel profile;
     private javax.swing.JLabel title;
+    private javax.swing.JLabel token;
     // End of variables declaration//GEN-END:variables
 }
