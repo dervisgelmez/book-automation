@@ -9,6 +9,8 @@ import cinar.Interface.index;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 /**
@@ -329,5 +331,67 @@ public class User {
         
         return control;
     }
+    
+    public void toList(JComboBox box)
+    {
+        String[] values = new String[this.count()]; 
+        
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+        
+        try 
+        { 
+            String query = "SELECT * FROM user";
+            Statement st = db.connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            int i=0;
+            while (rs.next())
+            {
+                values[i] = rs.getString("username");
+                i++;
+            }
+            
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        db.close(); 
+        
+        box.setModel(new DefaultComboBoxModel<String>(values));
+    }
+    
+    
+    public int getSelectedId(JComboBox box)
+    {
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+        int id = 1;
+        
+        try 
+        {
+            String query = "SELECT * FROM user WHERE username=?";
+            PreparedStatement preparedStmt = db.connection.prepareStatement(query);
+            preparedStmt.setString(1,box.getSelectedItem().toString());
+
+            ResultSet rs = preparedStmt.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        db.close();
+        
+        return id;
+    }
+    
             
 }

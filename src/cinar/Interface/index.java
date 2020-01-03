@@ -68,6 +68,7 @@ public class index extends javax.swing.JFrame {
         adminAuthor = new javax.swing.JLabel();
         adminPublisher = new javax.swing.JLabel();
         profile = new javax.swing.JLabel();
+        adminPublisher1 = new javax.swing.JLabel();
         homePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -183,6 +184,15 @@ public class index extends javax.swing.JFrame {
             }
         });
 
+        adminPublisher1.setForeground(new java.awt.Color(255, 255, 255));
+        adminPublisher1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        adminPublisher1.setText("Kullanıcılar");
+        adminPublisher1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminPublisher1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -196,6 +206,8 @@ public class index extends javax.swing.JFrame {
                 .addComponent(adminAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(adminPublisher, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(adminPublisher1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -209,7 +221,8 @@ public class index extends javax.swing.JFrame {
                     .addComponent(adminCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(adminAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(adminPublisher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                    .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(adminPublisher1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(11, 11, 11))
         );
 
@@ -513,6 +526,12 @@ public class index extends javax.swing.JFrame {
         clear.setVisible(true);
     }//GEN-LAST:event_clearMouseClicked
 
+    private void adminPublisher1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminPublisher1MouseClicked
+        // TODO add your handling code here:
+        user us = new user();
+        us.setVisible(true);
+    }//GEN-LAST:event_adminPublisher1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -570,6 +589,7 @@ public class index extends javax.swing.JFrame {
     private javax.swing.JLabel adminBook;
     private javax.swing.JLabel adminCategory;
     private javax.swing.JLabel adminPublisher;
+    private javax.swing.JLabel adminPublisher1;
     private javax.swing.JLabel author;
     private javax.swing.JLabel basket;
     private javax.swing.JLabel buy;
