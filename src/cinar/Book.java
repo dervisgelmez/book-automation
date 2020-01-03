@@ -8,6 +8,7 @@ package cinar;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
 /**
@@ -144,7 +145,7 @@ public class Book {
         db.initalize();
         
         Services service = new Services();
-        Object[][] data = new String[20][6];
+        Object[][] data = new String[this.count()][6];
         
         try 
         { 
@@ -264,10 +265,39 @@ public class Book {
         db.close();
     }
     
+    public int count()
+    {
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+        
+        int count = 0;
+      
+        try 
+        {
+            String query = "SELECT COUNT(*) as cnt FROM book";
+            Statement st = db.connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            while (rs.next())
+            {
+                count = rs.getInt("cnt");
+            }
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        
+        db.close();
+        
+        return count;
+    }
     
     public void toList(JComboBox box)
     {
-        box.removeAllItems();
+        String[] values = new String[this.count()]; 
         
         Database db = new Database();
         db.initalize();
@@ -279,18 +309,21 @@ public class Book {
             String query = "SELECT * FROM book";
             Statement st = db.connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-
+            
+            int i=0;
             while (rs.next())
             {
-                box.addItem(rs.getString("title"));
+                values[i] = rs.getString("title");
+                i++;
             }
         }
         catch(Exception e)
         {
             service.alert("error", e.getMessage()); 
         }
-       
-        db.close();  
+        db.close();
+        
+        box.setModel(new DefaultComboBoxModel<String>(values));
     }
     
     

@@ -14,7 +14,6 @@ import cinar.Interface.login;
  */
 public class Cinar {
     
-    
     /**
      * @param args the command line arguments
      */

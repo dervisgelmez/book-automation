@@ -8,6 +8,7 @@ package cinar;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
 /**
@@ -114,7 +115,7 @@ public class Publisher {
     
     public void toList(JComboBox box)
     {
-        box.removeAllItems();
+        String[] values = new String[this.count()]; 
         
         Database db = new Database();
         db.initalize();
@@ -127,17 +128,50 @@ public class Publisher {
             Statement st = db.connection.createStatement();
             ResultSet rs = st.executeQuery(query);
 
+            int i=0;
             while (rs.next())
             {
-                box.addItem(rs.getString("name"));
+                values[i] = rs.getString("name");
+                i++;
             }
         }
         catch(Exception e)
         {
             service.alert("error", e.getMessage()); 
         }
-       
         db.close();  
+        
+        box.setModel(new DefaultComboBoxModel<String>(values));
+    }
+    
+    public int count()
+    {
+        Database db = new Database();
+        db.initalize();
+        
+        Services service = new Services();
+        
+        int count = 0;
+      
+        try 
+        {
+            String query = "SELECT COUNT(*) as cnt FROM publisher";
+            Statement st = db.connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            while (rs.next())
+            {
+                count = rs.getInt("cnt");
+            }
+        }
+        catch(Exception e)
+        {
+            service.alert("error", e.getMessage()); 
+        }
+        
+        db.close();
+        
+        return count;
     }
     
     public int getSelectedId(JComboBox box)

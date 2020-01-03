@@ -48,6 +48,7 @@ public class register extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
@@ -231,6 +232,7 @@ public class register extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         Services service = new Services();
+        int control = 1;
         boolean access = true;
         
         access = (name.getText().isEmpty()) ? false : true;
@@ -250,11 +252,14 @@ public class register extends javax.swing.JFrame {
                 user.setEmail(email.getText());
                 user.setPassword(password.getText());
                 user.setRoles("user");
-                user.create();
+                control = user.create();
                 
-                this.setVisible(false);
-                login log = new login();
-                log.setVisible(true);
+                System.out.println(control);
+                if (control == 0) {
+                    this.setVisible(false);
+                    login log = new login();
+                    log.setVisible(true);
+                }
             }
             else {
                 JOptionPane.showMessageDialog(null, "Parolalar uyuşmuyor");

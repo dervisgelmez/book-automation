@@ -105,8 +105,8 @@ public class books extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         uPage = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(475, 925));
+        setResizable(false);
 
         header.setBackground(new java.awt.Color(0, 0, 0));
 
